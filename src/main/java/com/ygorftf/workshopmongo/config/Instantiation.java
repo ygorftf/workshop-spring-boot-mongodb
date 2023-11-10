@@ -3,6 +3,7 @@ package com.ygorftf.workshopmongo.config;
 import com.ygorftf.workshopmongo.domain.Post;
 import com.ygorftf.workshopmongo.domain.User;
 import com.ygorftf.workshopmongo.dto.AuthorDTO;
+import com.ygorftf.workshopmongo.dto.CommentDTO;
 import com.ygorftf.workshopmongo.repository.PostRepository;
 import com.ygorftf.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,13 @@ public class Instantiation implements CommandLineRunner {
         Post post1 = new Post(null,sdf.parse("21/03/2018"), "Partiu viajem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
         Post post2 = new Post(null,sdf.parse("23/03/2018"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
 
+        CommentDTO c1 = new CommentDTO("Boa viagem mano!",sdf.parse("21/03/2018"), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Aproveite",sdf.parse("22/03/2018"), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Tenha um ótimo dia!",sdf.parse("23/03/2018"), new AuthorDTO(alex));
+
+        post1.getComents().addAll(Arrays.asList(c1, c2));
+        post2.getComents().addAll(Arrays.asList(c3));
+        
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
         postRepository.saveAll(Arrays.asList(post1, post2));
 
